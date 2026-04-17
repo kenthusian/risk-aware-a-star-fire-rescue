@@ -1,0 +1,189 @@
+﻿
+---------------------------------------------------------------------------------
+  FIRE-RESCUE ROBOT  -  PATHFINDING COMPARISON
+---------------------------------------------------------------------------------
+Algorithm             Path Len   Explored  Cum. Heat  Peak T   Mean(ms)   Std(ms)
+---------------------------------------------------------------------------------
+Dijkstra                    47        334     5329.0     487      0.713     0.212
+A*                          47        198     6711.0     487      0.862     0.269
+Risk-Aware A*               53        332     4572.0     474      1.148     0.273
+Weighted A*                 47         94     6711.0     487      0.231     0.055
+GBFS                        47         63     5329.0     487      0.116     0.012
+---------------------------------------------------------------------------------
+
+DERIVED METRICS
+---------------------------------------------------------------------------------
+Thermal reduction (Risk-Aware vs A*):     31.9%
+Path length overhead (Risk-Aware vs A*):  12.8%
+Speedup ratio (A* over Dijkstra):         0.83x
+---------------------------------------------------------------------------------
+
+Figure saved as C:\Users\Arav Kilak\OneDrive\Documents\2nd Semester\MDP\fire_rescue_comparison.png
+Figure saved as C:\Users\Arav Kilak\OneDrive\Documents\2nd Semester\MDP\algorithm_comparison.png
+
+ALPHA SENSITIVITY SWEEP
+---------------------------------------------------------------------------------
+a      |  Path Len |       Heat |  Reduction %
+---------------------------------------------------------------------------------
+0.0    |        47 |     6711.0 |         0.0%
+0.2    |        47 |     4589.0 |        31.6%
+0.4    |        53 |     4572.0 |        31.9%
+0.6    |        53 |     4572.0 |        31.9%
+0.8    |        53 |     4572.0 |        31.9%
+1.0    |        53 |     4572.0 |        31.9%
+1.5    |        53 |     4572.0 |        31.9%
+2.0    |        53 |     4572.0 |        31.9%
+3.0    |        53 |     4572.0 |        31.9%
+5.0    |        53 |     4572.0 |        31.9%
+---------------------------------------------------------------------------------
+Figure saved as C:\Users\Arav Kilak\OneDrive\Documents\2nd Semester\MDP\alpha_sweep.png
+
+MULTI-SEED GENERALISABILITY EXPERIMENT
+---------------------------------------------------
+  Seed  Algorithm         PathLen   Nodes      Heat
+---------------------------------------------------
+     7  Dijkstra               47     334      5329
+     7  A*                     47     198      6711
+     7  Risk-Aware A*          53     332      4572
+     7  Weighted A*            47      94      6711
+     7  GBFS                   47      63      5329
+
+    42  Dijkstra               47     334      5283
+    42  A*                     47     198      6533
+    42  Risk-Aware A*          49     331      4463
+    42  Weighted A*            47      94      6533
+    42  GBFS                   47      63      5283
+
+    99  Dijkstra               47     334      5233
+    99  A*                     47     198      6495
+    99  Risk-Aware A*          53     331      4417
+    99  Weighted A*            47      94      6495
+    99  GBFS                   47      63      5233
+
+   256  Dijkstra               47     334      5184
+   256  A*                     47     198      6349
+   256  Risk-Aware A*          49     330      4364
+   256  Weighted A*            47      94      6349
+   256  GBFS                   47      63      5184
+
+   512  Dijkstra               47     334      5189
+   512  A*                     47     198      6486
+   512  Risk-Aware A*          47     332      4383
+   512  Weighted A*            47      94      6486
+   512  GBFS                   47      63      5189
+
+---------------------------------------------------
+CROSS-SEED SUMMARY  (mean +/- std over 5 seeds)
+---------------------------------------------------
+Algorithm             Nodes  mean+/-std      Heat   mean+/-std
+---------------------------------------------------
+Dijkstra                    334 +/- 0.0            5244 +/- 62
+A*                          198 +/- 0.0           6515 +/- 130
+Risk-Aware A*               331 +/- 0.8            4440 +/- 83
+Weighted A*                  94 +/- 0.0           6515 +/- 130
+GBFS                         63 +/- 0.0            5244 +/- 62
+---------------------------------------------------
+
+
+GRID SCALABILITY  (T_RUNS = 3 per algorithm)
+-------------------------------------------------------------
+    N     |V| Algorithm          Nodes    Mean(ms)    Std(ms)
+-------------------------------------------------------------
+   20     400 Dijkstra             364       0.873      0.023
+   20     400 A*                    39       0.122      0.003
+   20     400 Risk-Aware A*        363       1.507      0.063
+   20     400 Weighted A*           39       0.134      0.004
+   20     400 GBFS                  39       0.104      0.003
+
+   50    2500 Dijkstra            2404       6.803      0.758
+   50    2500 A*                    99       0.384      0.088
+   50    2500 Risk-Aware A*       2402      14.732      2.689
+   50    2500 Weighted A*           99       0.704      0.036
+   50    2500 GBFS                  99       0.327      0.007
+
+  100   10000 Dijkstra            9804      34.001      2.643
+  100   10000 A*                   199       1.072      0.289
+  100   10000 Risk-Aware A*       9803      47.594      1.978
+  100   10000 Weighted A*          199       1.103      0.186
+  100   10000 GBFS                 199       0.685      0.143
+
+  200   40000 Dijkstra           39604     155.810     42.948
+  200   40000 A*                   399       1.972      0.239
+  200   40000 Risk-Aware A*      39603     212.351      7.645
+  200   40000 Weighted A*          399       1.310      0.296
+  200   40000 GBFS                 399       1.262      0.320
+
+-------------------------------------------------------------
+
+
+MONTE CARLO MAZE TEST  (100 random grids, N=20, 20% walls)
+------------------------------------------------------------
+Valid trials       : 89 / 100  (11 skipped — disconnected)
+Cumul. heat reduc. : +62.0% ± 36.4%  (min 0.0%  max 99.0%)
+Peak heat reduc.   : +51.1% ± 42.1%  (min -51.3%  max 99.8%)
+A* nodes explored  : 68 ± 25
+RA* nodes explored : 227 ± 54
+Trials where RA* reduces heat: 82.0%
+------------------------------------------------------------
+
+
+ZERO-RISK SANITY BASELINE  (T(v) = 1 everywhere)
+-------------------------------------------------------
+Algorithm           Path Len   Nodes  Cum. Heat  Peak T
+-------------------------------------------------------
+Dijkstra                  47     334         47       1
+A*                        47     198         47       1
+Risk-Aware A*             47     334         47       1
+Weighted A*               47      94         47       1
+GBFS                      47      63         47       1
+-------------------------------------------------------
+
+A* path len = 47,  RA* path len = 47
+A* nodes    = 198,  RA* nodes   = 334
+Result: MISMATCH (unexpected).
+-------------------------------------------------------
+
+
+SENSOR NOISE ROBUSTNESS  (Risk-Aware A*, noise σ = 10%)
+----------------------------------------------------------
+  Trials             : 50
+  Unique path lengths: [47, 49, 51, 53]
+  Path length        : 50.6 ± 2.55  [47 – 53]
+  Cumulative heat    : 4545 ± 113
+  Peak heat          : 507 ± 30
+  Dominant route     : 53-step path in 46% of trials
+  ==> Route variance detected — chattering may occur at this noise level.
+----------------------------------------------------------
+
+
+THERMAL TRAP TOPOLOGY  (U-shaped zone at 490°C, existing walls)
+--------------------------------------------------------------
+Algorithm           Steps   Nodes   Cum. Heat  Peak T
+--------------------------------------------------------------
+Dijkstra               47     334        5329     487
+A*                     47     198       10097     490
+Risk-Aware A*          47     329        4589     474
+Weighted A*            47      94       10097     490
+GBFS                   47      63        5329     487
+--------------------------------------------------------------
+
+  Heat reduction vs A*  : 54.6%  (RA* 4589  vs  A* 10097)
+  Peak T reduction vs A*: 3.3%  (RA* peak 474°C  vs  A* peak 490°C)
+  ==> RA* successfully steered clear of the thermal trap.
+--------------------------------------------------------------
+
+
+SPACE COMPLEXITY  (max priority-queue size during traversal)
+-----------------------------------------------------
+Algorithm           Nodes exp.  Max |open|  Max/|V| %
+-----------------------------------------------------
+Dijkstra                   334          17       4.2%
+A*                         198         105      26.2%
+Risk-Aware A*              332          31       7.8%
+Weighted A*                 94          49      12.2%
+GBFS                        63          49      12.2%
+-----------------------------------------------------
+
+  |V| = 400 cells.  Max |open| / |V| << 1 confirms O(|V|) space bound.
+  At ~40 bytes/node (Python tuple), peak RAM usage ≈ 1 KB — well within embedded controller limits.
+
